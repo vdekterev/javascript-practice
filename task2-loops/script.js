@@ -58,5 +58,3 @@ switch(true){
     default:
         alert('An error occured!');    
 }
-
-console.log(personalMovieDB.count);
