@@ -40,5 +40,3 @@ const movieOne = askMovie(),
 
 personalMovieDB.movies[movieOne[0]] = movieOne[1];
 personalMovieDB.movies[movieTwo[0]] = movieOne[1];
-
-console.log(personalMovieDB);
