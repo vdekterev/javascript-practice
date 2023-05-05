@@ -23,10 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tabListWrapper.addEventListener('click', (event) => {
         const tab = event.target;
-        console.log(tab.c);
         if (tab?.classList.contains('tabheader__item')) {
             hideTabs();
-            console.dir(event);
             tabList.forEach((element, index) => {
                 if (tab == element) {
                     showTab(index);
