@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // Tabs
-    
     const tabList = document.querySelectorAll('.tabheader__item'),
         tabListWrapper = document.querySelector('.tabheader__items'),
         tabPictures = document.querySelectorAll('.tabcontent');
@@ -15,18 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    function showTab(index = 0) {
+    function showTab(index = 1) {
         const tab = tabListWrapper.children[index];
         tab.classList.add('tabheader__item_active');
         tabPictures[index].style.display = '';
     }
 
-    hideTabs();
-    showTab();
-
     tabListWrapper.addEventListener('click', (event) => {
         const tab = event.target;
-        
+
         if (tab?.classList.contains('tabheader__item')) {
             hideTabs();
             tabList.forEach((element, index) => {
@@ -35,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
             });
         };
-    }); 
-    
+    });
+
     // Timer
 
     function timeLeft(deadline) {
@@ -74,10 +70,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function isZero(n) {
             return n >= 0 && n < 10 ? `0${n}` : n;
-        } 
+        }
     }
 
-    setTimeLeft('.timer', '2023-05-21 13:48');
+    hideTabs();
+    showTab();
+
+    setTimeLeft('.timer', '2023-05-21');
 
     // Modal
+
+    const modalWindow = document.querySelector('.modal'),
+        modalButtons = document.querySelectorAll('[data-modal]'),
+        modalClose = document.querySelector('[data-close]');
+
+    modalButtons.forEach(btn => {
+        btn.addEventListener('click', openModalWindow);
+    });
+
+    modalClose.addEventListener('click', closeModalWindow);
+
+    function openModalWindow() {
+        modalWindow.classList.toggle('hidden');
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalWindowTimerId);
+    };
+
+    function openModalWindowByScroll() {
+        if (document.documentElement.clientHeight + window.pageYOffset >= document.documentElement.scrollHeight) {
+            openModalWindow();
+            window.removeEventListener('scroll', openModalWindowByScroll)
+        }
+    }
+
+    function closeModalWindow() {
+        modalWindow.classList.toggle('hidden');
+        document.body.style.overflow = '';
+    };
+
+    modalWindow.addEventListener('click', (event) => {
+        if (event.target.classList == 'modal') {
+            closeModalWindow();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && !modalWindow.classList.contains('hidden')) {
+            closeModalWindow();
+        };
+    });
+
+    window.addEventListener('scroll', openModalWindowByScroll);
+
+    const modalWindowTimerId = setTimeout(openModalWindow, 3000);
+
 });
