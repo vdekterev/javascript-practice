@@ -2,3 +2,4 @@ materials
 .DS_Store
 index_h.html
 project
+node_modules
